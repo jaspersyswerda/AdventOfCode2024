@@ -40,7 +40,7 @@ public class DayOne extends EveryDay {
         System.out.println("Part1: " + result);
     }
 
-    private void fillLists(List<String> input) {
+    void fillLists(List<String> input) {
         for (String line : input){
             String[] numbersAsString = line.split("\\s+");
             leftList.add(Integer.parseInt(numbersAsString[0]));
