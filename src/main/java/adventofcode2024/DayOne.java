@@ -1,4 +1,4 @@
-package main.adventofcode2024;
+package adventofcode2024;
 
 import java.util.ArrayList;
 import java.util.Collections;
