@@ -20,51 +20,20 @@ public class DayTwo extends EveryDay{
 
         // all increasing or all decreasing
         // adjacent levels differ by between 1 and 3
-
-        boolean allIncreasing = determineAllIncreasing(numbers);
-        boolean allDecreasing = determineAllDecreasing(numbers);
-        if (!allDecreasing && !allIncreasing){
-            return false;
-        }
-        return adjacentLevelsSafe(numbers, allIncreasing);
-    }
-
-    private static boolean adjacentLevelsSafe(List<Integer> numbers, boolean allIncreasing) {
-        int i = 0;
-        while (i < numbers.size() - 1){
+        boolean allIncreasing = true;
+        boolean allDecreasing = true;
+        for (int i = 0; i<numbers.size() - 1; i++){
             int difference = numbers.get(i+1) - numbers.get(i);
-            if (allIncreasing && difference > 3){
+            if (difference < 1 || difference > 3){
+                allDecreasing = false;
+            }
+            if (difference > -1 || difference < -3){
+                allIncreasing = false;
+            }
+            if (!allDecreasing && !allIncreasing){
                 return false;
             }
-            if (!allIncreasing && difference < -3){
-                return false;
-            }
-            i++;
 
-        }
-        return true;
-
-
-    }
-
-    private static boolean determineAllDecreasing(List<Integer> numbers) {
-        int i = 0;
-        while (i < numbers.size() - 1){
-            if (numbers.get(i + 1) >= numbers.get(i)){
-                return false;
-            }
-            i++;
-        }
-        return true;
-    }
-
-    private static boolean determineAllIncreasing(List<Integer> numbers) {
-       int i = 0;
-        while (i < numbers.size() - 1){
-            if (numbers.get(i + 1) <= numbers.get(i)){
-                return false;
-            }
-            i++;
         }
         return true;
     }
