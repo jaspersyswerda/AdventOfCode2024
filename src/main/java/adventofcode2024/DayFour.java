@@ -19,10 +19,64 @@ public class DayFour extends EveryDay{
         total += countVertical(input, pattern);
         total += countDiagonalNorthWestSouthEast(input, pattern);
         total += countDiagonalNorthEastSouthWest(input, pattern);
-        System.out.println(total);
+        System.out.println("Part 1: " + total);
     }
 
     private static void part2(List<String> input) {
+        int total = 0;
+        Character pattern = 'A';
+        for (int i = 1; i < input.size() - 1; i++) {
+           for (int j = 1; j<input.get(0).length() - 1;j++){
+               if (input.get(i).charAt(j) == pattern && checkAround(input, i, j)){
+                   total++;
+               }
+           }
+        }
+        System.out.println("Part 2: " + total);
+    }
+
+    private static boolean checkAround(List<String> input, int i, int j) {
+        // M . M   S . S  M . S  S . M
+        // . A .   . A .  . A .  . A .
+        // S . S   M . M  M . S  S . M
+        return checkAround1(input, i, j)
+                || checkAround2(input, i, j)
+                || checkAround3(input, i, j)
+                || checkAround4(input, i, j);
+    }
+
+    private static boolean checkAround3(List<String> input, int i, int j) {
+        return input.get(i - 1).charAt(j - 1) == 'M'
+                && input.get(i + 1).charAt(j + 1) == 'S'
+                && input.get(i + 1).charAt(j - 1) == 'S'
+                && input.get(i - 1).charAt(j + 1) == 'M';
+    }
+
+    private static boolean checkAround4(List<String> input, int i, int j) {
+        return input.get(i - 1).charAt(j - 1) == 'S'
+                && input.get(i + 1).charAt(j + 1) == 'M'
+                && input.get(i + 1).charAt(j - 1) == 'M'
+                && input.get(i - 1).charAt(j + 1) == 'S';
+    }
+
+    private static boolean checkAround1(List<String> input, int i, int j) {
+        // M . M
+        // . A .
+        // S . S
+        return input.get(i - 1).charAt(j - 1) == 'M'
+                && input.get(i + 1).charAt(j + 1) == 'S'
+                && input.get(i + 1).charAt(j - 1) == 'M'
+                && input.get(i - 1).charAt(j + 1) == 'S';
+    }
+
+    private static boolean checkAround2(List<String> input, int i, int j) {
+        // S . S
+        // . A .
+        // M . M
+        return input.get(i - 1).charAt(j - 1) == 'S'
+                && input.get(i + 1).charAt(j + 1) == 'M'
+                && input.get(i + 1).charAt(j - 1) == 'S'
+                && input.get(i - 1).charAt(j + 1) == 'M';
     }
 
     private static int countDiagonalNorthEastSouthWest(List<String> input, String pattern) {
