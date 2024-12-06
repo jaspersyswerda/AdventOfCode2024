@@ -39,7 +39,6 @@ public class DayFive extends EveryDay{
     }
 
     private static List<Integer> getPageNumbers(String pagesAsString) {
-        List<Integer> numbers = new ArrayList<>();
         String[] pagesAsArrayString = pagesAsString.split(",");
         return Arrays.stream(pagesAsArrayString).map(Integer::parseInt).toList();
     }
