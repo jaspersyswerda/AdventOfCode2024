@@ -3,21 +3,29 @@ package adventofcode2024;
 import java.util.List;
 
 public class DayFour extends EveryDay{
-    private static final String PATTERN = "XMAS";
 
     public static void main(String[] args) {
         List<String> input = readInputFile("DayFour.txt");
         input.forEach(System.out::println);
         System.out.println();
+        part1(input);
+        part2(input);
+    }
+
+    private static void part1(List<String> input) {
         int total = 0;
-        total += countHorizontal(input);
-        total += countVertical(input);
-        total += countDiagonalNorthWestSouthEast(input);
-        total += countDiagonalNorthEastSouthWest(input);
+        String pattern = "XMAS";
+        total += countHorizontal(input, pattern);
+        total += countVertical(input, pattern);
+        total += countDiagonalNorthWestSouthEast(input, pattern);
+        total += countDiagonalNorthEastSouthWest(input, pattern);
         System.out.println(total);
     }
 
-    private static int countDiagonalNorthEastSouthWest(List<String> input) {
+    private static void part2(List<String> input) {
+    }
+
+    private static int countDiagonalNorthEastSouthWest(List<String> input, String pattern) {
         int count = 0;
         int numberOfRows = input.size();
         int numberOfCols = input.get(0).length();
@@ -33,8 +41,8 @@ public class DayFour extends EveryDay{
                 colIndex--;
             }
             System.out.println(diagonal);
-            count += count(diagonal.toString());
-            count += count(diagonal.reverse().toString());
+            count += count(diagonal.toString(), pattern);
+            count += count(diagonal.reverse().toString(), pattern);
 
         }
         System.out.println("Rechts boven naar links onder, vanaf het midden");
@@ -48,15 +56,15 @@ public class DayFour extends EveryDay{
                 colIndex--;
             }
             System.out.println(diagonal);
-            count += count(diagonal.toString());
-            count += count(diagonal.reverse().toString());
+            count += count(diagonal.toString(), pattern);
+            count += count(diagonal.reverse().toString(), pattern);
 
         }
 
         return count;
     }
 
-    private static int countDiagonalNorthWestSouthEast(List<String> input) {
+    private static int countDiagonalNorthWestSouthEast(List<String> input, String pattern) {
         int count = 0;
         int numOfRows = input.size();
         int numOfCols = input.get(0).length();
@@ -72,8 +80,8 @@ public class DayFour extends EveryDay{
                 colIndex++;
             }
             System.out.println(diagonal);
-            count += count(diagonal.toString());
-            count += count(diagonal.reverse().toString());
+            count += count(diagonal.toString(), pattern);
+            count += count(diagonal.reverse().toString(), pattern);
 
         }
 
@@ -89,14 +97,14 @@ public class DayFour extends EveryDay{
                 colIndex++;
             }
             System.out.println(diagonal);
-            count += count(diagonal.toString());
-            count += count(diagonal.reverse().toString());
+            count += count(diagonal.toString(), pattern);
+            count += count(diagonal.reverse().toString(), pattern);
 
         }
         return count;
     }
 
-    private static int countVertical(List<String> input) {
+    private static int countVertical(List<String> input, String pattern) {
         System.out.println("verticaal:");
         int count = 0;
         for (int col = 0; col < input.get(0).length(); col++) {
@@ -105,30 +113,30 @@ public class DayFour extends EveryDay{
                 vertical.append(line.charAt(col));
             }
            System.out.println(vertical);
-           count += count(vertical.toString());
-           count += count(vertical.reverse().toString());
+           count += count(vertical.toString(), pattern);
+           count += count(vertical.reverse().toString(), pattern);
 
         }
         return count;
     }
 
-    private static int countHorizontal(List<String> input) {
+    private static int countHorizontal(List<String> input, String pattern) {
         System.out.println("Horizontalen: ");
         int count = 0;
         for (String line : input){
             System.out.println(line);
-            count += count(line);
-            count += count(new StringBuilder(line).reverse().toString());
+            count += count(line, pattern);
+            count += count(new StringBuilder(line).reverse().toString(), pattern);
         }
         return count;
     }
 
-    private static int count(String line){
+    private static int count(String line, String pattern){
         int count = 0;
-        int index = line.indexOf(PATTERN);
+        int index = line.indexOf(pattern);
         while (index != -1){
             count++;
-            index = line.indexOf(PATTERN, index + 1);
+            index = line.indexOf(pattern, index + 1);
         }
         return count;
     }
