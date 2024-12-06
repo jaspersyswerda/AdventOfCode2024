@@ -11,16 +11,19 @@ public class DayFive extends EveryDay{
         List<String> pagesToProduce = getPagesToProduce(input);
 
         Map<Integer, List<Integer>> orderMap = fillMap(rules);
+        part1(pagesToProduce, orderMap);
+
+    }
+
+    private static void part1(List<String> pagesToProduce, Map<Integer, List<Integer>> orderMap) {
         int result = 0;
         for (String pagesAsString : pagesToProduce){
             List<Integer> pageNumbers = getPageNumbers(pagesAsString);
-            System.out.println(pageNumbers);
             if (isValid(pageNumbers, orderMap)){
                 result+=(pageNumbers.get(pageNumbers.size()/2));
             }
         }
         System.out.println(result);
-
     }
 
     private static boolean isValid(List<Integer> pageNumbers, Map<Integer, List<Integer>> orderMap) {
