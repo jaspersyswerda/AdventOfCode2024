@@ -1,4 +1,4 @@
-package adventofcode2024.helperDaySix;
+package adventofcode2024.Day06;
 
 import java.util.Objects;
 

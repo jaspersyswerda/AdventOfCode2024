@@ -1,4 +1,6 @@
-package adventofcode2024;
+package adventofcode2024.Day07;
+
+import adventofcode2024.EveryDay;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -6,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DaySeven extends EveryDay{
+public class DaySeven extends EveryDay {
     List<String> input;
 
     public static void main(String[] args) {

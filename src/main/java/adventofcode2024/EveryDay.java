@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class EveryDay {
 
-    static List<String> readInputFile(String day) {
+    public static List<String> readInputFile(String day) {
         List<String> list = new ArrayList<>();
         try {
             File file = new File("src/main/resources/2024/" + day);

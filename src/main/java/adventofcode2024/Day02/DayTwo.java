@@ -1,10 +1,12 @@
-package adventofcode2024;
+package adventofcode2024.Day02;
+
+import adventofcode2024.EveryDay;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DayTwo extends EveryDay{
+public class DayTwo extends EveryDay {
     public static void main(String[] args) {
         List<String> input = readInputFile("DayTwo.txt");
        int result_Part1 = 0;

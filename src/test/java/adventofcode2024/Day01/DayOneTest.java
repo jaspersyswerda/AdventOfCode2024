@@ -1,4 +1,5 @@
-package adventofcode2024;
+package adventofcode2024.Day01;
+import adventofcode2024.EveryDay;
 import org.testng.annotations.Test;
 
 import java.util.List;

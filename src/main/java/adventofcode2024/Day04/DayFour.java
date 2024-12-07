@@ -1,8 +1,10 @@
-package adventofcode2024;
+package adventofcode2024.Day04;
+
+import adventofcode2024.EveryDay;
 
 import java.util.List;
 
-public class DayFour extends EveryDay{
+public class DayFour extends EveryDay {
 
     public static void main(String[] args) {
         List<String> input = readInputFile("DayFour.txt");
@@ -24,7 +26,7 @@ public class DayFour extends EveryDay{
 
     private static void part2(List<String> input) {
         int total = 0;
-        Character pattern = 'A';
+        char pattern = 'A';
         for (int i = 1; i < input.size() - 1; i++) {
            for (int j = 1; j<input.get(0).length() - 1;j++){
                if (input.get(i).charAt(j) == pattern && checkAround(input, i, j)){

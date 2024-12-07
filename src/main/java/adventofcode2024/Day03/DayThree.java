@@ -1,4 +1,6 @@
-package adventofcode2024;
+package adventofcode2024.Day03;
+
+import adventofcode2024.EveryDay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +8,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DayThree extends EveryDay{
+public class DayThree extends EveryDay {
 
     public static void main(String[] args) {
         List<String> input = readInputFile("DayThree.txt");

@@ -1,9 +1,11 @@
-package adventofcode2024;
+package adventofcode2024.Day05;
+
+import adventofcode2024.EveryDay;
 
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class DayFive extends EveryDay{
+public class DayFive extends EveryDay {
 
     public static void main(String[] args) {
         List<String> input = readInputFile("DayFive.txt");
