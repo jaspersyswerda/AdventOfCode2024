@@ -2,9 +2,7 @@ package adventofcode2024.Day06;
 
 import adventofcode2024.EveryDay;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DaySix extends EveryDay {
     List<String> input;
@@ -15,6 +13,7 @@ public class DaySix extends EveryDay {
         var daySix = new DaySix();
         daySix.input = readInputFile("DaySix.txt");
         daySix.doPart1();
+        daySix.doPart2();
     }
 
     private void doPart1() {
@@ -25,16 +24,16 @@ public class DaySix extends EveryDay {
         dRow = -1;
         dCol = 0;
         while(isInsideBoundaries(currentPosition)){
-            if (getNext(currentPosition) == '#'){
+            if (getNext(currentPosition, input) == '#'){
                 rotate90DegRight();
             }
             else {
                 currentPosition = new Coordinate(currentPosition.getRow() + dRow, currentPosition.getColumn() + dCol);
-                System.out.println(currentPosition);
+              //  System.out.println(currentPosition);
                 positions.add(currentPosition);
             }
         }
-        System.out.println(positions.stream().distinct().count());
+        System.out.println("Part 1: " + positions.size());
     }
 
     private void rotate90DegRight() {
@@ -45,7 +44,7 @@ public class DaySix extends EveryDay {
         dCol = newDCol;
     }
 
-    private char getNext(Coordinate currentPosition) {
+    private char getNext(Coordinate currentPosition, List<String> input) {
         return input.get(currentPosition.getRow() + dRow).charAt(currentPosition.getColumn() + dCol);
     }
 
@@ -61,6 +60,64 @@ public class DaySix extends EveryDay {
             for (int j = 0; j < input.get(0).length(); j++) {
                 if (input.get(i).charAt(j) == '^'){
                     return new Coordinate(i, j);
+                }
+
+            }
+        }
+        throw new RuntimeException("No start mark found!");
+    }
+
+    private void doPart2() {
+        int result = 0;
+        for (int i = 0; i < input.size(); i++) {
+            for (int j = 0; j < input.get(i).length(); j++) {
+
+                if (input.get(i).charAt(j) == '.'){
+                    System.out.println(i + "," + j);
+                    List<String> tempInput = replaceWithHashTag(i, j);
+                    Set<CoordinateWithDirection> positions = new HashSet<>();
+
+                    CoordinateWithDirection currentPosition = getStartPosition_Part2();
+                    positions.add(currentPosition);
+                    dRow = -1;
+                    dCol = 0;
+                    while(isInsideBoundaries(currentPosition)){
+                        if (getNext(currentPosition, tempInput) == '#'){
+                            rotate90DegRight();
+                            currentPosition = currentPosition.turnRight();
+                            positions.add(currentPosition);
+                        }
+                        else {
+                            currentPosition = new CoordinateWithDirection(currentPosition.getRow() + dRow, currentPosition.getColumn() + dCol, dRow, dCol);
+                            if (!positions.add(currentPosition)){
+                                result++;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Part 2: " + result);
+    }
+
+    private boolean inLoop(Set<CoordinateWithDirection> positions) {
+        return positions.stream().anyMatch(i -> Collections.frequency(positions, i) > 1);
+    }
+
+    private List<String> replaceWithHashTag(int i, int j) {
+        List<String> tempInput = new ArrayList<>(input);
+        StringBuilder row = new StringBuilder(tempInput.get(i));
+        row.replace(j, j + 1, "#");
+        tempInput.set(i, row.toString());
+        return tempInput;
+    }
+
+    private CoordinateWithDirection getStartPosition_Part2() {
+        for (int i = 0; i < input.size(); i++) {
+            for (int j = 0; j < input.get(0).length(); j++) {
+                if (input.get(i).charAt(j) == '^'){
+                    return new CoordinateWithDirection(i, j, -1, 0);
                 }
 
             }

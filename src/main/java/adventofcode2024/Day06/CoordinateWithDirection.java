@@ -2,21 +2,14 @@ package adventofcode2024.Day06;
 
 import java.util.Objects;
 
-public class CoordinateWithDirection {
-    int row;
-    int column;
+public class CoordinateWithDirection extends Coordinate {
     int dRow;
     int dCol;
 
-    public CoordinateWithDirection(int column, int dCol, int dRow, int row) {
-        this.column = column;
+    public CoordinateWithDirection(int row, int column, int dRow, int dCol) {
+        super(row, column);
         this.dCol = dCol;
         this.dRow = dRow;
-        this.row = row;
-    }
-
-    public int getColumn() {
-        return column;
     }
 
     public int getdCol() {
@@ -25,10 +18,6 @@ public class CoordinateWithDirection {
 
     public int getdRow() {
         return dRow;
-    }
-
-    public int getRow() {
-        return row;
     }
 
     @Override
@@ -52,5 +41,13 @@ public class CoordinateWithDirection {
                 ", dRow=" + dRow +
                 ", dCol=" + dCol +
                 '}';
+    }
+
+    public CoordinateWithDirection turnRight() {
+        int newDRow = dCol;
+        int newDCol = -dRow;
+
+        return new CoordinateWithDirection(this.row, this.column, newDRow, newDCol);
+
     }
 }
