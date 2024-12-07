@@ -73,7 +73,6 @@ public class DaySix extends EveryDay {
             for (int j = 0; j < input.get(i).length(); j++) {
 
                 if (input.get(i).charAt(j) == '.'){
-                    System.out.println(i + "," + j);
                     List<String> tempInput = replaceWithHashTag(i, j);
                     Set<CoordinateWithDirection> positions = new HashSet<>();
 
@@ -99,10 +98,6 @@ public class DaySix extends EveryDay {
             }
         }
         System.out.println("Part 2: " + result);
-    }
-
-    private boolean inLoop(Set<CoordinateWithDirection> positions) {
-        return positions.stream().anyMatch(i -> Collections.frequency(positions, i) > 1);
     }
 
     private List<String> replaceWithHashTag(int i, int j) {

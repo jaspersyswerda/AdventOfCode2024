@@ -12,14 +12,6 @@ public class CoordinateWithDirection extends Coordinate {
         this.dRow = dRow;
     }
 
-    public int getdCol() {
-        return dCol;
-    }
-
-    public int getdRow() {
-        return dRow;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
