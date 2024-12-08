@@ -15,23 +15,22 @@ public class DaySeven extends EveryDay {
         var daySeven = new DaySeven();
         daySeven.input = readInputFile("DaySeven.txt");
         daySeven.doPart1();
+        daySeven.doPart2();
     }
 
     private void doPart1() {
         BigInteger result = BigInteger.ZERO;
         for (var line: input){
             String[] parts = line.split(":", 2);
-            String goalNumberAsString = parts[0];
-            String partsAsString = parts[1];
-            BigInteger goalNumber = new BigInteger(goalNumberAsString);
-            List<BigInteger> partsList = Arrays.stream(partsAsString.trim().split("\\s+"))
+            BigInteger goalNumber = new BigInteger(parts[0]);
+            List<BigInteger> partsList = Arrays.stream(parts[1].trim().split("\\s+"))
                     .map(BigInteger::new)
                     .toList();
             if (canReachGoal(goalNumber, partsList)){
                result = result.add(goalNumber);
             }
         }
-        System.out.println(result);
+        System.out.println("Part 1: " + result);
     }
 
     private boolean canReachGoal(BigInteger goalNumber, List<BigInteger> parts) {
@@ -48,11 +47,41 @@ public class DaySeven extends EveryDay {
                 }
             }
             results = nextResults;
+        }
+        return results.contains(goalNumber);
+    }
 
-            if (results.contains(goalNumber)){
-                return true;
+    private void doPart2() {
+        BigInteger result = BigInteger.ZERO;
+        for (var line: input){
+            String[] parts = line.split(":", 2);
+            BigInteger goalNumber = new BigInteger(parts[0]);
+            List<BigInteger> partsList = Arrays.stream(parts[1].trim().split("\\s+"))
+                    .map(BigInteger::new)
+                    .toList();
+            if (canReachGoalWithConcatenation(goalNumber, partsList)){
+                result = result.add(goalNumber);
             }
         }
-        return false;
+        System.out.println("Part 2: " + result);
+    }
+
+    private boolean canReachGoalWithConcatenation(BigInteger goalNumber, List<BigInteger> parts) {
+        Set<BigInteger> results = new HashSet<>();
+        results.add(BigInteger.ZERO);
+        for (BigInteger part : parts){
+            Set<BigInteger> nextResults = new HashSet<>();
+
+            for (BigInteger result : results){
+                nextResults.add(result.add(part));
+
+                if (!BigInteger.ZERO.equals(result)){
+                    nextResults.add(result.multiply(part));
+                    nextResults.add(new BigInteger(result + String.valueOf(part)));
+                }
+            }
+            results = nextResults;
+        }
+        return results.contains(goalNumber);
     }
 }
