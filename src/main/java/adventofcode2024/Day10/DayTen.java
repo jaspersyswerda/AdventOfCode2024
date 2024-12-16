@@ -34,7 +34,6 @@ public class DayTen extends EveryDay {
         for (int[] zero : zeros){
             Set<String> reachableNines = new HashSet<>();
             findAdjacent(zero[0], zero[1], 0, reachableNines);
-
             result += reachableNines.size();
         }
 
@@ -99,6 +98,39 @@ public class DayTen extends EveryDay {
     }
 
     private void doPart2() {
+        int result = 0;
+
+        List<int[]> zeros = findZeroLocations();
+        for (int[] zero : zeros){
+            result += findAdjacent(zero[0], zero[1], 0);
+        }
+
+        System.out.println("Part 2: " + result);
+    }
+
+    private int findAdjacent(int row, int col, int height) {
+        //buiten de grenzen van de grid
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[row].length){
+            return 0;
+        }
+        // niet het juiste nummer
+        if (grid[row][col] != height){
+            return 0;
+        }
+
+        // als 9 dan top bereikt
+        if (height == 9){
+            return 1;
+        }
+
+        int trails = 0;
+        // ga kijken in alle richtingen
+        for(int[] dir : directions){
+            int nextRow = row + dir[0];
+            int nextCol = col + dir[1];
+            trails += findAdjacent(nextRow, nextCol, height + 1);
+        }
+        return trails;
     }
 
 }
