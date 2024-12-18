@@ -2,11 +2,7 @@ package adventofcode2024.Day11;
 
 import adventofcode2024.EveryDay;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -22,21 +18,21 @@ public class DayEleven extends EveryDay {
 
     private void doPart1() {
         String[] numbersAsString = input.split("\\s+");
-        List<BigInteger> numbers = Arrays.stream(numbersAsString).map(BigInteger::new).toList();
+        List<Long> numbers = Arrays.stream(numbersAsString).map(Long::valueOf).toList();
         for (int i = 0; i < 25; i++) {
-            ArrayList<BigInteger> numbersCopy = new ArrayList<>();
-            for (BigInteger number : numbers){
-                if (BigInteger.ZERO.equals(number)){
-                    numbersCopy.add(BigInteger.ONE);
+            ArrayList<Long> numbersCopy = new ArrayList<>();
+            for (Long number : numbers){
+                if (number == 0L){
+                    numbersCopy.add(1L);
                 } else if (String.valueOf(number).length() % 2 == 0) {
                     String numberAsString = String.valueOf(number);
                     int mid = numberAsString.length() / 2;
-                    numbersCopy.add(new BigInteger(numberAsString.substring(0,mid)));
-                    numbersCopy.add(new BigInteger(numberAsString.substring(mid)));
+                    numbersCopy.add(Long.valueOf(numberAsString.substring(0,mid)));
+                    numbersCopy.add(Long.valueOf(numberAsString.substring(mid)));
                 }
 
                 else {
-                    numbersCopy.add(number.multiply(BigInteger.valueOf(2024)));
+                    numbersCopy.add(number * (2024L));
                 }
             }
             numbers = numbersCopy;
@@ -47,26 +43,30 @@ public class DayEleven extends EveryDay {
 
     private void doPart2() {
         String[] numbersAsString = input.split("\\s+");
-        LinkedList<BigInteger> numbers = Arrays.stream(numbersAsString).map(BigInteger::new).collect(Collectors.toCollection(LinkedList::new));
+        Map<Long, Long> stones = Arrays.stream(numbersAsString).map(Long::valueOf).collect(Collectors.toMap(e -> e, e -> 1L));
         for (int i = 0; i < 75; i++) {
-            LinkedList<BigInteger> numbersCopy = new LinkedList<>();
-            for (BigInteger number : numbers){
-                if (BigInteger.ZERO.equals(number)){
-                    numbersCopy.add(BigInteger.ONE);
-                } else if (String.valueOf(number).length() % 2 == 0) {
-                    String numberAsString = String.valueOf(number);
+            Map<Long, Long> stonesCopy = new HashMap<>();
+            for (var entry : stones.entrySet()){
+                if (entry.getKey() == 0L){
+                    stonesCopy.compute(1L, (k,v) -> (v == null ? 0L : v) + entry.getValue());
+                } else if (String.valueOf(entry.getKey()).length() % 2 == 0) {
+                    String numberAsString = String.valueOf(entry.getKey());
                     int mid = numberAsString.length() / 2;
-                    numbersCopy.add(new BigInteger(numberAsString.substring(0,mid)));
-                    numbersCopy.add(new BigInteger(numberAsString.substring(mid)));
+                    stonesCopy.compute(Long.valueOf(numberAsString.substring(0,mid)), (k,v) -> (v == null ? 0L : v) + entry.getValue());
+                    stonesCopy.compute(Long.valueOf(numberAsString.substring(mid)), (k,v) -> (v == null ? 0L : v) + entry.getValue());
                 }
 
                 else {
-                    numbersCopy.add(number.multiply(BigInteger.valueOf(2024)));
+                   stonesCopy.compute(entry.getKey() * 2024L, (k,v) -> (v == null ? 0L : v) + entry.getValue());
                 }
             }
-            numbers = numbersCopy;
+            stones = stonesCopy;
         }
-        System.out.println("Part 2: " + numbers.size());
+        long output = 0;
+        for (var value : stones.values()){
+            output += value;
+        }
+        System.out.println("Part 2: " + output);
 
     }
 }
