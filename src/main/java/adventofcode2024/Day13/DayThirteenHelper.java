@@ -1,14 +1,14 @@
 package adventofcode2024.Day13;
 
 public class DayThirteenHelper {
-    int aX;
-    int aY;
-    int bX;
-    int bY;
-    int answerX;
-    int answerY;
+    long aX;
+    long aY;
+    long bX;
+    long bY;
+    long answerX;
+    long answerY;
 
-    public DayThirteenHelper(int aX, int aY, int bX, int bY, int answerX, int answerY) {
+    public DayThirteenHelper(long aX, long aY, long bX, long bY, long answerX, long answerY) {
         if (aX == 0 || bX == 0 || aY == 0|| bY == 0 || answerX == 0 || answerY == 0){
             throw new IllegalArgumentException("Er is een waarde 0");
         }
@@ -20,27 +20,27 @@ public class DayThirteenHelper {
         this.bY = bY;
     }
 
-    public int getAnswerX() {
+    public long getAnswerX() {
         return answerX;
     }
 
-    public int getAnswerY() {
+    public long getAnswerY() {
         return answerY;
     }
 
-    public int getaX() {
+    public long getaX() {
         return aX;
     }
 
-    public int getbX() {
+    public long getbX() {
         return bX;
     }
 
-    public int getaY() {
+    public long getaY() {
         return aY;
     }
 
-    public int getbY() {
+    public long getbY() {
         return bY;
     }
 

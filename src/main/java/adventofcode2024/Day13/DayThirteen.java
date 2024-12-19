@@ -19,42 +19,42 @@ public class DayThirteen extends EveryDay {
     private void doPart1() {
         List<DayThirteenHelper> helpers = createHelperObjects();
         helpers.forEach(System.out::println);
-        int result = 0;
+        long result = 0;
         for(var helper : helpers){
-            int determinant = getDeterminant(helper);
+            long determinant = getDeterminant(helper);
             if (determinant == 0){
                 continue;
             }
-            int numerator_X = helper.getAnswerX() * helper.getbY() - helper.getAnswerY() * helper.getbX();
+            long numerator_X = helper.getAnswerX() * helper.getbY() - helper.getAnswerY() * helper.getbX();
 
-            int numerator_Y = (helper.getAnswerY() * helper.getaX() - helper.getAnswerX() * helper.getaY());
+            long numerator_Y = (helper.getAnswerY() * helper.getaX() - helper.getAnswerX() * helper.getaY());
 
             if (isEvenlyDivisible(numerator_X, determinant) && isEvenlyDivisible(numerator_Y,determinant)){
-                int x = numerator_X/determinant;
-                int y = numerator_Y/determinant;
+                long x = numerator_X/determinant;
+                long y = numerator_Y/determinant;
                 result += 3*x + y;
             }
         }
-        System.out.println(result);
+        System.out.println("Part 1: " + result);
     }
 
-    private boolean isEvenlyDivisible(int a, int b) {
+    private boolean isEvenlyDivisible(long a, long b) {
         return a % b == 0;
     }
 
-    private int getDeterminant(DayThirteenHelper helper) {
+    private long getDeterminant(DayThirteenHelper helper) {
         return helper.getaX() * helper.getbY() - helper.getbX() * helper.getaY();
     }
 
     private List<DayThirteenHelper> createHelperObjects() {
         List<DayThirteenHelper> result = new ArrayList<>();
 
-        int aX = 0;
-        int aY = 0;
-        int bX = 0;
-        int bY = 0;
-        int answerX = 0;
-        int answerY = 0;
+        long aX = 0;
+        long aY = 0;
+        long bX = 0;
+        long bY = 0;
+        long answerX = 0;
+        long answerY = 0;
         for (String line : input){
             String[] currentLine = line.split("[:,+=]");
             if (StringUtils.isBlank(currentLine[0])){
@@ -68,21 +68,21 @@ public class DayThirteen extends EveryDay {
                 continue;
             }
             if ("Button A".equals(currentLine[0])){
-                aX = Integer.parseInt(currentLine[2]);
-                aY = Integer.parseInt(currentLine[4]);
+                aX = Long.parseLong(currentLine[2]);
+                aY = Long.parseLong(currentLine[4]);
             }
             if ("Button B".equals(currentLine[0])){
-                bX = Integer.parseInt(currentLine[2]);
-                bY = Integer.parseInt(currentLine[4]);
+                bX = Long.parseLong(currentLine[2]);
+                bY = Long.parseLong(currentLine[4]);
             }
 
             if ("Button B".equals(currentLine[0])){
-                bX = Integer.parseInt(currentLine[2]);
-                bY = Integer.parseInt(currentLine[4]);
+                bX = Long.parseLong(currentLine[2]);
+                bY = Long.parseLong(currentLine[4]);
             }
             if ("Prize".equals(currentLine[0])){
-                answerX = Integer.parseInt(currentLine[2]);
-                answerY = Integer.parseInt(currentLine[4]);
+                answerX = Long.parseLong(currentLine[2]);
+                answerY = Long.parseLong(currentLine[4]);
             }
 
         }
