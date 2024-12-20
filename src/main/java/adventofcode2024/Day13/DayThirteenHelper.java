@@ -1,15 +1,17 @@
 package adventofcode2024.Day13;
 
-public class DayThirteenHelper {
-    long aX;
-    long aY;
-    long bX;
-    long bY;
-    long answerX;
-    long answerY;
+import java.math.BigInteger;
 
-    public DayThirteenHelper(long aX, long aY, long bX, long bY, long answerX, long answerY) {
-        if (aX == 0 || bX == 0 || aY == 0|| bY == 0 || answerX == 0 || answerY == 0){
+public class DayThirteenHelper {
+    BigInteger aX;
+    BigInteger aY;
+    BigInteger bX;
+    BigInteger bY;
+    BigInteger answerX;
+    BigInteger answerY;
+
+    public DayThirteenHelper(BigInteger aX, BigInteger aY, BigInteger bX, BigInteger bY, BigInteger answerX, BigInteger answerY) {
+        if (aX == null || bX ==  null || aY ==  null|| bY == null || answerX == null || answerY == null){
             throw new IllegalArgumentException("Er is een waarde 0");
         }
         this.answerX = answerX;
@@ -20,27 +22,27 @@ public class DayThirteenHelper {
         this.bY = bY;
     }
 
-    public long getAnswerX() {
+    public BigInteger getAnswerX() {
         return answerX;
     }
 
-    public long getAnswerY() {
+    public BigInteger getAnswerY() {
         return answerY;
     }
 
-    public long getaX() {
+    public BigInteger getaX() {
         return aX;
     }
 
-    public long getbX() {
+    public BigInteger getbX() {
         return bX;
     }
 
-    public long getaY() {
+    public BigInteger getaY() {
         return aY;
     }
 
-    public long getbY() {
+    public BigInteger getbY() {
         return bY;
     }
 
